@@ -16,7 +16,7 @@ import java.math.RoundingMode;
 class NBPExchangeRateFinder implements ExchangeRateFinder {
 
     @Value("${integration.rateFinder.nbp.defaultTable}")
-    private final String defaultTable = "A";
+    private final String defaultTable;
     private final NBPExchangeRateClient nbpExchangeRateClient;
 
     @Override
@@ -35,11 +35,7 @@ class NBPExchangeRateFinder implements ExchangeRateFinder {
     private ExchangeRate fetch(Currency baseCurrency, Currency targetCurrency) {
         if(baseCurrency.equals(Currency.PLN)) {
             var response = nbpExchangeRateClient.getRate(defaultTable, targetCurrency.name());
-            return new ExchangeRate(
-                    baseCurrency,
-                    targetCurrency,
-                    inverseExchangeRate(response.rates().get(0).mid())
-            );
+            return new ExchangeRate(baseCurrency, targetCurrency, inverseExchangeRate(response.rates().get(0).mid()));
         }
 
         var response = nbpExchangeRateClient.getRate(defaultTable, baseCurrency.name());
