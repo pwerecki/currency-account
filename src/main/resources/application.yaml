@@ -1,0 +1,16 @@
+spring:
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
+application:
+  currencyAccount:
+    balance:
+      currencies: PLN, USD
+
+integration:
+  rateFinder:
+    nbp:
+      name: nbp-exchange-rate-client
+      url: https://api.nbp.pl
+      path: /api/exchangerates
+      defaultTable: A

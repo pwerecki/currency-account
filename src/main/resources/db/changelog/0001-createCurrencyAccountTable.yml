@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0001-createCurrencyAccountTable
+      author: p_werecki
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: currency_account
+      changes:
+        - createTable:
+            tableName: currency_account
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: currency_account_pkey
+                  name: account_id
+                  type: VARCHAR2(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: balance_amount
+                  type: NUMBER(10,2)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: balance_currency
+                  type: VARCHAR2(3)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: owner_first_name
+                  type: VARCHAR2(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: owner_last_name
+                  type: VARCHAR2(255)
+
+
